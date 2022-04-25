@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Reeves Eyre"
+  given-names: "Jack"
+  orcid: "https://orcid.org/0000-0001-8893-9810"
+title: "SaildroneCovarianceFlux"
+version: 0.1
+date-released: 2022-04-25
+url: "https://github.com/NOAA-PMEL/SaildroneCovarianceFlux"

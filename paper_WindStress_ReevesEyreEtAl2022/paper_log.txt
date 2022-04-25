@@ -1,0 +1,666 @@
+#-------------------------------------------------------------------------------
+# 2021-10-14
+#-------------------------------------------------------------------------------
+
+$ pwd 
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src
+
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+$ git log -1
+commit 6d50769f0490776ca515bb67befeb6485370f106 (HEAD -> main, origin/main)
+Author: Jack Reeves Eyre <jack.reeveseyre@gmail.com>
+Date:   Thu Oct 14 16:09:32 2021 -0700
+
+    Changes order of calculation in L1_processing to fix problem with array size.
+
+$ python L1_processing.py 2017 1005 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20170902_20170930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20171001_20171031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20171101_20171130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20171201_20171231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20180101_20180131.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20180201_20180228.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20180301_20180331.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20180401_20180505.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20170902_20170930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20171001_20171031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20171101_20171130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20171201_20171231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20180101_20180131.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20180201_20180228.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20180301_20180331.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_Temp_WindSt_20180401_20180505.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is not evenly spaced
+(max delta_t = 0.2)
+(min delta_t = 0.1)
+
+Making time steps even
+---------- qc_times_make_even ----------
+245 gaps to fill
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 14464
+WIND_STATUS != 0 AND VWND != NaN: 14464
+WIND_STATUS != 0 AND WWND != NaN: 14464
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 14464
+Detrending
+Flagging outliers
+Variable UWND: 4801 outliers out of 116044354 original data points
+Variable VWND: 4572 outliers out of 116044354 original data points
+Variable WWND: 5761 outliers out of 116044354 original data points
+Variable WIND_SONICTEMP: 63212 outliers out of 116044354 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20170904_20180430_QC_L1_5min.nc
+
+$ python L1_processing.py 2017 1006 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20170902_20170930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20171001_20171031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20171101_20171130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20171201_20171231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20180101_20180131.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20180201_20180228.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20180301_20180331.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20180401_20180505.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20170902_20170930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20171001_20171031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20171101_20171130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20171201_20171231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20180101_20180131.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20180201_20180228.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20180301_20180331.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_Temp_WindSt_20180401_20180505.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is not evenly spaced
+(max delta_t = 0.2)
+(min delta_t = 0.1)
+
+Making time steps even
+---------- qc_times_make_even ----------
+245 gaps to fill
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 19285
+WIND_STATUS != 0 AND VWND != NaN: 19285
+WIND_STATUS != 0 AND WWND != NaN: 19285
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 19285
+Detrending
+Flagging outliers
+Variable UWND: 4458 outliers out of 117812855 original data points
+Variable VWND: 4936 outliers out of 117812855 original data points
+Variable WWND: 6461 outliers out of 117812855 original data points
+Variable WIND_SONICTEMP: 59800 outliers out of 117812855 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20170904_20180505_QC_L1_5min.nc
+
+$ python L1_processing.py 2019 1066 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190609_20190701.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190701_20190801.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190801_20190901.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190901_20191001.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1066_2019_20hz_1066_Temp_WindSt_20190608_20190630.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1066_2019_20hz_1066_Temp_WindSt_20190701_20190731.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1066_2019_20hz_1066_Temp_WindSt_20190801_20190831.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1066_2019_20hz_1066_Temp_WindSt_20190901_20190930.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is evenly spaced
+(max delta_t = 0.050000128)
+(min delta_t = 0.049999872)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 388
+WIND_STATUS != 0 AND VWND != NaN: 388
+WIND_STATUS != 0 AND WWND != NaN: 388
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 385
+Detrending
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Flagging outliers
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/numpy/lib/nanfunctions.py:993: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanmedian1d, axis, a, overwrite_input)
+Variable UWND: 938 outliers out of 142304177 original data points
+Variable VWND: 2248 outliers out of 142304177 original data points
+Variable WWND: 7564 outliers out of 142304177 original data points
+Variable WIND_SONICTEMP: 17013 outliers out of 142304177 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190626_20190916_QC_L1_5min.nc
+
+$ python L1_processing.py 2019 1067 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190618_20190701.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190701_20190801.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190801_20190901.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190901_20191001.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20191001_20191101.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20191101_20191201.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20191201_20200101.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20190618_20190630.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20190701_20190731.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20190801_20190831.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20190901_20190930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20191001_20191031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20191101_20191130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20191201_20191231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1067_2019_20hz_1067_Temp_WindSt_20200101_20200103.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is evenly spaced
+(max delta_t = 0.050000128)
+(min delta_t = 0.049999872)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 27109
+WIND_STATUS != 0 AND VWND != NaN: 27109
+WIND_STATUS != 0 AND WWND != NaN: 27109
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 27103
+Detrending
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Flagging outliers
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/numpy/lib/nanfunctions.py:993: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanmedian1d, axis, a, overwrite_input)
+Variable UWND: 25508 outliers out of 300166809 original data points
+Variable VWND: 26188 outliers out of 300166809 original data points
+Variable WWND: 36047 outliers out of 300166809 original data points
+Variable WIND_SONICTEMP: 55781 outliers out of 300166809 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190626_20191217_QC_L1_5min.nc
+
+$ python L1_processing.py 2019 1068 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190608_20190701.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190701_20190801.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190801_20190901.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190901_20191001.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20191001_20191101.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20191101_20191201.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20191201_20200101.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20190608_20190630.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20190701_20190731.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20190801_20190831.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20190901_20190930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20191001_20191031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20191101_20191130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20191201_20191231.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1068_2019_20hz_1068_Temp_WindSt_20200101_20200107.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is evenly spaced
+(max delta_t = 0.050000128)
+(min delta_t = 0.049999872)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 948
+WIND_STATUS != 0 AND VWND != NaN: 948
+WIND_STATUS != 0 AND WWND != NaN: 948
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 942
+Detrending
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Flagging outliers
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/numpy/lib/nanfunctions.py:993: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanmedian1d, axis, a, overwrite_input)
+Variable UWND: 4825 outliers out of 286796435 original data points
+Variable VWND: 5577 outliers out of 286796435 original data points
+Variable WWND: 17341 outliers out of 286796435 original data points
+Variable WIND_SONICTEMP: 45151 outliers out of 286796435 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190625_20191212_QC_L1_5min.nc
+
+$ python L1_processing.py 2019 1069 --period=5
+---------- Loading data ----------
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190608_20190701.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190701_20190801.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190801_20190901.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190901_20191001.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20191001_20191101.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20191101_20191201.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20191201_20191227.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20190608_20190630.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20190701_20190731.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20190801_20190831.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20190901_20190930.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20191001_20191031.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20191101_20191130.nc
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/sd1069_2019_20hz_1069_Temp_WindSt_20191201_20191228.nc
+Merging....
+Combining datasets...
+---------- Formatting time series ----------
+---------- qc_times_unique ----------
+time axis has all unique values
+
+---------- qc_times_monotonic ----------
+time axis is strictly monotonically increasing
+
+---------- qc_times_evenly_spaced ----------
+time axis is evenly spaced
+(max delta_t = 0.050000128)
+(min delta_t = 0.049999872)
+
+---------- Removing spikes ----------
+Removing WIND_STATUS != 0
+WIND_STATUS != 0 AND UWND != NaN: 83200
+WIND_STATUS != 0 AND VWND != NaN: 83200
+WIND_STATUS != 0 AND WWND != NaN: 83200
+WIND_STATUS != 0 AND WIND_SONICTEMP != NaN: 83194
+Detrending
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Flagging outliers
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/numpy/lib/nanfunctions.py:993: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanmedian1d, axis, a, overwrite_input)
+Variable UWND: 9112 outliers out of 292634013 original data points
+Variable VWND: 8986 outliers out of 292634013 original data points
+Variable WWND: 21134 outliers out of 292634013 original data points
+Variable WIND_SONICTEMP: 53385 outliers out of 292634013 original data points
+Adding trend back
+---------- Saving data ----------
+Saving to:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190626_20191212_QC_L1_5min.nc
+
+#-------------------------------------------------------------------------------
+# 2021-10-15
+#-------------------------------------------------------------------------------
+
+$ python L2_processing.py 2017 1005 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20170904_20180430_QC_L1_5min.nc
+> /Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/L2_processing.py(56)main()
+-> dt_ms = SD_mission_details.saildrone_frequency[argv[1]][argv[2]]['dt_ms']
+(Pdb) c
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2017_1min_1005_allVars_20170901_20180506.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+Calculating covariances...
+> /Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/L2_processing.py(259)dir_cov_time()
+-> if frame_type in ['both', 'stream']:
+(Pdb) c
+---------- Calculating thermodynamic quantities ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20170904_20180430_10min_fluxes_L2.nc
+
+$ git log -1
+commit e642cc6cc6c91a9ef9bd1b62e9bdf2c8f5d1782b (HEAD -> main, origin/main)
+Author: Jack Reeves Eyre <jack.reeveseyre@gmail.com>
+Date:   Fri Oct 15 09:35:53 2021 -0700
+
+    Removes some debug pdb calls from L2_processing; no functional changes.
+
+python L2_processing.py 2017 1006 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20170904_20180505_QC_L1_5min.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2017_1min_1006_allVars_20170901_20180515.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+Calculating covariances...
+---------- Calculating thermodynamic quantities ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20170904_20180505_10min_fluxes_L2.nc
+
+$ python L2_processing.py 2019 1066 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190626_20190916_QC_L1_5min.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1066_allVars_20190608_20200107.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Calculating covariances...
+---------- Calculating thermodynamic quantities ----------
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190626_20190916_10min_fluxes_L2.nc
+
+$ python L2_processing.py 2019 1067 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190626_20191217_QC_L1_5min.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1067_allVars_20190608_20200107.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Calculating covariances...
+---------- Calculating thermodynamic quantities ----------
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190626_20191217_10min_fluxes_L2.nc
+
+$ python L2_processing.py 2019 1068 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190625_20191212_QC_L1_5min.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1068_allVars_20190608_20200107.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Calculating covariances...
+---------- Calculating thermodynamic quantities ----------
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190625_20191212_10min_fluxes_L2.nc
+
+$ python L2_processing.py 2019 1069 10
+---------- Loading data ----------
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190626_20191212_QC_L1_5min.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1069_allVars_20190608_20200107.nc
+---------- Pre-processing... ----------
+Subset to offset times...
+Correcting vertical wind direction...
+Applying flags...
+Reshaping...
+---------- Calculating covariance fluxes ----------
+/Users/reeveseyre/opt/miniconda2/envs/sci3/lib/python3.8/site-packages/xarray/core/nanops.py:142: RuntimeWarning: Mean of empty slice
+  return np.nanmean(a, axis=axis, dtype=dtype)
+Calculating mean wind directions...
+Transforming to streamwise flow...
+Detrending...
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:82: RuntimeWarning: Mean of empty slice
+  Y_m = np.reshape(np.nanmean(Y,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:84: RuntimeWarning: Mean of empty slice
+  t_m = np.reshape(np.nanmean(t,axis=1),
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src/utils_time_chunk.py:93: RuntimeWarning: invalid value encountered in true_divide
+  a = a_num/a_den
+Calculating covariances...
+---------- Calculating thermodynamic quantities ----------
+---------- Creating output dataset ----------
+---------- Writing to file ----------
+Saving file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190626_20191212_10min_fluxes_L2.nc
+
+$ pwd
+/Users/reeveseyre/Documents/code/paper
+$ python complete_data.py
+
+2017, 1005
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1005_uvw_20170904_20180430_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2017Saildrone1005curf.cdf
+Number of 10-minute periods: 34415
+100.0% complete: 14
+100.0% complete+bulk: 13
+100.0% complete+bulk+current: 12
+99.0% complete: 14927
+99.0% complete+bulk: 14581
+99.0% complete+bulk+current: 14029
+
+2017, 1006
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2017_hf_10hz_1006_uvw_20170904_20180505_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2017Saildrone1006curf.cdf
+Number of 10-minute periods: 35135
+100.0% complete: 20
+100.0% complete+bulk: 20
+100.0% complete+bulk+current: 20
+99.0% complete: 15746
+99.0% complete+bulk: 15287
+99.0% complete+bulk+current: 14891
+
+2019, 1066
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1066_uvw_20190626_20190916_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2019Saildrone1066curf.cdf
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1066_allVars_20190608_20200107.nc
+Number of 10-minute periods: 11951
+100.0% complete: 2102
+100.0% complete+bulk: 2089
+100.0% complete+bulk+current: 2089
+100.0% complete+bulk+current+wave: 2086
+99.0% complete: 10940
+99.0% complete+bulk: 10886
+99.0% complete+bulk+current: 10886
+99.0% complete+bulk+current+wave: 10879
+
+2019, 1067
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1067_uvw_20190626_20191217_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2019Saildrone1067curf.cdf
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1067_allVars_20190608_20200107.nc
+Number of 10-minute periods: 25199
+100.0% complete: 4663
+100.0% complete+bulk: 4632
+100.0% complete+bulk+current: 4632
+100.0% complete+bulk+current+wave: 4631
+99.0% complete: 22869
+99.0% complete+bulk: 22735
+99.0% complete+bulk+current: 22735
+99.0% complete+bulk+current+wave: 22721
+
+2019, 1068
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1068_uvw_20190625_20191212_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2019Saildrone1068curf.cdf
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1068_allVars_20190608_20200107.nc
+Number of 10-minute periods: 24623
+100.0% complete: 3691
+100.0% complete+bulk: 3685
+100.0% complete+bulk+current: 3684
+100.0% complete+bulk+current+wave: 3682
+99.0% complete: 22613
+99.0% complete+bulk: 22600
+99.0% complete+bulk+current: 22588
+99.0% complete+bulk+current+wave: 22579
+
+2019, 1069
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/10Hz/tpos_2019_hf_20hz_1069_uvw_20190626_20191212_10min_fluxes_L2.nc
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/derived/TPOS2019Saildrone1069curf.cdf
+Loading file:
+/Users/reeveseyre/Documents/Data/Saildrone/1min/tpos_2019_1min_1069_allVars_20190608_20200107.nc
+Number of 10-minute periods: 24479
+100.0% complete: 2519
+100.0% complete+bulk: 2519
+100.0% complete+bulk+current: 2516
+100.0% complete+bulk+current+wave: 2514
+99.0% complete: 17714
+99.0% complete+bulk: 17712
+99.0% complete+bulk+current: 17700
+99.0% complete+bulk+current+wave: 17689
+
+Total across missions:
+100.0% complete: 13009 = 90.34027777777777 days
+100.0% complete+bulk: 12958 = 89.98611111111111 days
+100.0% complete+bulk+curr: 12953 = 89.95138888888889 days
+100.0% complete+bulk+curr+wave: 12913 = 89.67361111111111 days
+99.0% complete: 104809 = 727.8402777777778 days
+99.0% complete+bulk: 103801 = 720.8402777777778 days
+99.0% complete+bulk+curr: 102829 = 714.0902777777778 days
+99.0% complete+bulk+curr+wave: 73868 = 512.9722222222222 days
+
+
+#-------------------------------------------------------------------------------
+# 2021-10-18
+#-------------------------------------------------------------------------------
+
+$ pwd
+/Users/reeveseyre/Documents/code/SaildroneCovarianceFlux/src
+
+$ git log -1
+commit 60bf68a9f314df31f83ea15f8c1f61bfb1f5bc77 (HEAD -> main, origin/main)
+Author: Jack Reeves Eyre <jack.reeveseyre@gmail.com>
+Date:   Mon Oct 18 13:40:23 2021 -0700
+
+    Brings L2_relative_wind_processing up to date with L2 normal wind.
+    
+    Also corrects some missing metadata from the L2 (normal wind version)
+    and adds some metadata correction (related to ADCP data) to the bulk
+    data load function.
+    
+$ python L2_relative_wind_processing.py 2017 1005 10
+$ python L2_relative_wind_processing.py 2017 1006 10
+$ python L2_relative_wind_processing.py 2019 1066 10
+$ python L2_relative_wind_processing.py 2019 1067 10
+$ python L2_relative_wind_processing.py 2019 1068 10
+$ python L2_relative_wind_processing.py 2019 1069 10
+
+
