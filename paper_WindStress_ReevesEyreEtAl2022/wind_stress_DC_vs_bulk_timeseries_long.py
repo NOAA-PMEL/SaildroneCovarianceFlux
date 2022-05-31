@@ -190,9 +190,9 @@ def plot_monthly_timeseries(da_DC, da_bulk,
 def plot_details():
     if 1:
         out_dict = {
-            'ylims':(0,0.8),
-            'yticks_major':np.arange(0.0, 0.81, 0.2),
-            'yticks_minor':np.arange(0.0, 0.81, 0.1)
+            'ylims':(0,0.5),
+            'yticks_major':np.arange(0.0, 0.51, 0.2),
+            'yticks_minor':np.arange(0.0, 0.51, 0.1)
         }
     #
     return out_dict

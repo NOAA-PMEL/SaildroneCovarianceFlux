@@ -155,6 +155,13 @@ def plot_mag_pdf(ds_l, yr_l, sd_l,
                                       ds['r_xy_m_w_xy'].data[thresh_bool]),
                                      axis=None)
     
+    # Perform statistical test.
+    d_ks, p_ks = scipy.stats.mstats.ks_2samp(r_xy, w_xy,
+                                             alternative='two-sided',
+                                             mode='auto')
+    print('---------- 2-sided 2-sample Kolmogorov-Smirnov test: ----------')
+    print('p-value = ' + str(p_ks))
+    
     # Set up figure.
     fig, axs = plt.subplots(1, 1,
                             squeeze=False,
