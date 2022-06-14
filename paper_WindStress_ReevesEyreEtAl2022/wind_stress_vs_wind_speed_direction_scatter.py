@@ -124,7 +124,7 @@ def main():
         wspd_lower_str = "{:.0f}".format(wspd_bins[iw])
         wspd_upper_str = "{:.0f}".format(wspd_bins[iw+1])
         leg_label = wspd_lower_str + r'$\ \leqslant |U| < \ $' + wspd_upper_str
-        axs[1].hist(dir_diff.data[iw_bool], bins=dir_bins,
+        axs[1].hist(dir_rel_diff.data[iw_bool], bins=dir_bins,
                     density=True, histtype='step',
                     orientation='horizontal', cumulative=True,
                     color=custom_cols[iw%len(custom_cols)],
@@ -179,6 +179,18 @@ def angle_diff_0_180(a1, a2):
     #
     diff = a1 - a2
     delta_a = np.abs((diff +180.0) % 360 - 180.0)
+    #
+    return delta_a
+
+
+def angle_diff_m180_180(a1, a2):
+    """Calculates the absolute value of the smallest angle between headings.
+
+    a1 and a2 -- xarrays of angles in degrees.
+    """
+    #
+    diff = a1 - a2
+    delta_a = (diff +180.0) % 360 - 180.0
     #
     return delta_a
 

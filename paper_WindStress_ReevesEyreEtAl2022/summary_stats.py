@@ -49,6 +49,7 @@ def main():
     count_thresh = 0.99
     stress_types = ['tauxy', 'taus', 'taus_rel']
     count_total = 0.0
+    sum_bulk_total = 0.0
     total_sum_diff = np.zeros(len(stress_types), dtype=np.float64)
     total_sum_abs_diff = np.zeros(len(stress_types), dtype=np.float64)
     total_sum_sq_diff = np.zeros(len(stress_types), dtype=np.float64)
@@ -118,6 +119,14 @@ def main():
             total_sum_abs_diff[iv] = total_sum_abs_diff[iv] + diff_abs
             print('MAD = ' + str(diff_abs.data/count_complete.data))
             
+        # Bulk mean.
+        sum_bulk_total = sum_bulk_total + \
+            ds_join['TAU'].sel(time=subset_bool).sum()
+        print('Mean bulk wind stress = ' +
+              str(ds_join['TAU'].sel(time=subset_bool).sum().data/
+                  count_complete.data))
+        
+            
     #
     print('\nTotal across missions:')
     for iv, v in enumerate(stress_types):
@@ -127,6 +136,8 @@ def main():
         print('Mean diff = ' + str(total_sum_diff[iv]/count_total))
         print('RMSD = ' + str(np.sqrt(total_sum_sq_diff[iv]/count_total)))
         print('MAD = ' + str(total_sum_abs_diff[iv]/count_total))
+    print('\n')
+    print('Mean bulk wind stress = ' + str(sum_bulk_total/count_total))
     print('\n')
     #
     return

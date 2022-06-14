@@ -41,6 +41,9 @@ from utils_timeseries import *
 
 def main():
     
+    # Drag coefficient type -- 'stream' or 'mag'
+    cd_type = 'mag'
+    
     # List of saildrones.
     years = np.array([2017, 2017,
                       2019, 2019, 2019, 2019])
@@ -60,8 +63,6 @@ def main():
         freq_hz = SD_mission_details.\
             saildrone_frequency[str(yr)][str(sd)]['freq_hertz']
         dir_cov_period = 10 # minutes
-        #ds_DC = load_L2_data(str(yr), str(sd),
-        #                     downsample=False, av_period=dir_cov_period)
         ds_DC = load_L2_relative_data(str(yr), str(sd),
                                       downsample=False,
                                       av_period=dir_cov_period)
@@ -94,26 +95,27 @@ def main():
             ((ds_both['UWND'] - ds_both['UCUR10MIN_bulk'])**2) +
             ((ds_both['VWND'] - ds_both['VCUR10MIN_bulk'])**2)
         )
-        ds_both['drag_coefficient'] = \
-            np.sqrt((ds_both['taux']**2) + (ds_both['tauy']**2))/\
-                    (ds_both['air_density']*(ds_both['wind_speed']**2))
-        #ds_both['drag_coefficient'] = \
-        #    np.abs(ds_both['taus'])/\
-        #    (ds_both['air_density']*(ds_both['wind_speed']**2))
-        #ds_both['drag_coefficient'] = \
-        #    ds_both['taus']/\
-        #    (ds_both['air_density']*(ds_both['wind_speed']**2))
+        if  cd_type == 'mag':
+            ds_both['drag_coefficient'] = \
+                np.sqrt((ds_both['taux']**2) + (ds_both['tauy']**2))/\
+                        (ds_both['air_density']*(ds_both['wind_speed']**2))
+        elif cd_type == 'stream':
+            ds_both['drag_coefficient'] = \
+                ds_both['taus']/\
+                (ds_both['air_density']*(ds_both['wind_speed']**2))
+        else:
+            sys.exit('cd_type must be one of {stream, mag}.')
         # Add dataset to list.
         ds_list.append(ds_both)
     
     # Plot scatter.
     plot_drag_scatter(ds_list, years, drones,
-                      row_list, col_list)
+                      row_list, col_list, cd_type)
     # 
     return
 
 
-def plot_drag_scatter(ds_l, yrs, ids, rows, cols):
+def plot_drag_scatter(ds_l, yrs, ids, rows, cols, cdt):
     
     # Set up figure.
     fig, axs = plt.subplots(1, 1,
@@ -140,13 +142,23 @@ def plot_drag_scatter(ds_l, yrs, ids, rows, cols):
         bin_stats(U_DC, CD_DC, bin_width=1.0, bin_min_count=20)
     
     # Make the plot.
-    axs.set_ylim(-0.001, 0.01)
+    if cdt == 'mag':
+        axs.set_ylim(-0.001, 0.01)
+    elif cdt == 'stream':
+        axs.set_ylim(-0.005, 0.01)
+    else:
+        sys.exit('cdt must be one of {stream, mag}.')
     axs.set_xlim(0.0, 15.0)
     axs.tick_params(axis='x', which='both', bottom=True, top=True)
     axs.tick_params(axis='y', which='both', left=True, right=True)
     axs.set_xlabel(r'$|\mathbf{U_{rel}}|$' + ' (' +
                    r'$m~s^{-1}$' + ')')
-    axs.set_ylabel(r'$\mathit{C_{D,mag}}$')
+    if cdt == 'mag':
+        axs.set_ylabel(r'$\mathit{C_{D,mag}}$')
+    elif cdt == 'stream':
+        axs.set_ylabel(r'$\mathit{C_{D,stream}}$')
+    else:
+        sys.exit('cdt must be one of {stream, mag}.')
     #
     # Plot data.
     sc = axs.scatter(U_DC, CD_DC,
@@ -164,7 +176,7 @@ def plot_drag_scatter(ds_l, yrs, ids, rows, cols):
     # Save out figure.
     plot_filename = config.plot_dir + \
         'Saildrone_DirCov/' + \
-        'wind_speed_drag_coeff_scatter.'
+        'wind_speed_drag_coeff_scatter_' + cdt + '.'
     #plot_file_format = 'pdf'
     #plt.savefig(plot_filename + plot_file_format, format=plot_file_format)
     plot_file_format = 'png'
